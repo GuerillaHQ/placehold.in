@@ -61,18 +61,18 @@ export default component$(() => {
 				</p>
 
 				<div class="grid grid-cols-2 xs:grid-cols-4 gap-2 md:gap-5 items-center justify-items-center text-center">
-                    <div class="col-span-2">
+					<div class="col-span-2">
 					<PlaceholderExample  width={200} />
-                    </div>
-                    <div class="col-span-2">
+					</div>
+					<div class="col-span-2">
 					<PlaceholderExample width={300} height={200} />
-                    </div>
-                    <div class="col-span-3">
+					</div>
+					<div class="col-span-3">
 					<PlaceholderExample width={400} height={300} />
-                    </div>
-                    <div>
+					</div>
+					<div>
 					<PlaceholderExample width={100} height={200} />
-                    </div>
+					</div>
 				</div>
 			</section>
 
@@ -164,13 +164,13 @@ const PlaceholderExample = component$(({ width, height, dpr, format, dark }: Par
 	].filter(x => x != null).join(" ")
 
 	return (
-        <div class="not-prose">
+		<div class="not-prose">
 		<figure>
 			<img src={path} width={width} height={height} alt={description}  />
 			<figcaption class="mt-2">
 				<code class="break-all text-xs">{path}</code>
 			</figcaption>
 		</figure>
-        </div>
+		</div>
 	)
 })
