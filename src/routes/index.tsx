@@ -9,8 +9,6 @@ export default component$(() => {
 
 	return (
 		<>
-			<h1>placehold.in</h1>
-
 			<p class="lead">
 				A quick way to display placeholder images during mockups and
 				development using a simple and comprehensive syntax.
@@ -121,6 +119,12 @@ export default component$(() => {
 					<ExampleImage parameters="200?dark" />
 				</div>
 			</section>
+            <section>
+					<ExampleImage parameters="25" />
+					<ExampleImage parameters="35" />
+					<ExampleImage parameters="300" />
+
+            </section>
 		</>
 	)
 })

@@ -1,10 +1,6 @@
-# Qwik City App ⚡️
+# Placehold.in
 
--   [Qwik Docs](https://qwik.builder.io/)
--   [Discord](https://qwik.builder.io/chat)
--   [Qwik GitHub](https://github.com/BuilderIO/qwik)
--   [@QwikDev](https://twitter.com/QwikDev)
--   [Vite](https://vitejs.dev/)
+A quick way to display placeholder images during mockups and development using a simple and comprehensive syntax.
 
 ---
 
