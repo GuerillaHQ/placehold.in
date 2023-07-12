@@ -65,13 +65,13 @@ export default component$(() => {
 					<PlaceholderExample  width={200} />
 					</div>
 					<div class="col-span-2">
-					<PlaceholderExample width={300} height={200} />
+					<PlaceholderExample width={300} height={200}/>
 					</div>
 					<div class="col-span-3">
-					<PlaceholderExample width={400} height={300} />
+					<PlaceholderExample width={400} height={300} lazy={true}/>
 					</div>
 					<div>
-					<PlaceholderExample width={100} height={200} />
+					<PlaceholderExample width={100} height={200} lazy={true}/>
 					</div>
 				</div>
 			</section>
@@ -88,8 +88,8 @@ export default component$(() => {
 				</p>
 
 				<div class="grid grid-cols-1 xs:grid-cols-2 gap-2 md:gap-5 items-center justify-items-center text-center">
-					<PlaceholderExample width={200} dpr={2} />
-					<PlaceholderExample width={200} dpr={4} />
+					<PlaceholderExample width={200} dpr={2} lazy={true}/>
+					<PlaceholderExample width={200} dpr={4} lazy={true}/>
 				</div>
 			</section>
 
@@ -109,10 +109,10 @@ export default component$(() => {
 				</p>
 
 				<div class="grid grid-cols-1 xs:grid-cols-2 gap-2 md:gap-5 items-center justify-items-center text-center">
-					<PlaceholderExample width={200} format="png" />
-					<PlaceholderExample width={200} format="jpeg" />
-					<PlaceholderExample width={200} format="webp" />
-					<PlaceholderExample width={200} format="avif" />
+					<PlaceholderExample width={200} format="png" lazy={true}/>
+					<PlaceholderExample width={200} format="jpeg" lazy={true}/>
+					<PlaceholderExample width={200} format="webp" lazy={true}/>
+					<PlaceholderExample width={200} format="avif" lazy={true}/>
 				</div>
 			</section>
 
@@ -127,8 +127,8 @@ export default component$(() => {
 				</p>
 
 				<div class="grid grid-cols-1 xs:grid-cols-2 gap-2 md:gap-5 items-center justify-items-center text-center">
-					<PlaceholderExample width={200} />
-					<PlaceholderExample width={200} dark={true} />
+					<PlaceholderExample width={200} lazy={true}/>
+					<PlaceholderExample width={200} dark={true} lazy={true}/>
 				</div>
 			</section>
 		</>
@@ -140,10 +140,11 @@ type Parameters = {
 	height?: number,
 	dpr?: number,
 	format?: string,
-	dark?: true
+	dark?: true,
+	lazy?: true
 }
 
-const PlaceholderExample = component$(({ width, height, dpr, format, dark }: Parameters) => {
+const PlaceholderExample = component$(({ width, height, dpr, format, dark, lazy }: Parameters) => {
 	const {
 		url: { origin },
 	} = useLocation()
@@ -169,7 +170,7 @@ const PlaceholderExample = component$(({ width, height, dpr, format, dark }: Par
 	return (
 		<div class="not-prose">
 		<figure>
-			<img src={path} width={width} height={height ?? width} alt={description} class="mx-auto" />
+			<img src={path} width={width} height={height ?? width} alt={description} loading={ lazy ? 'lazy' : 'eager' } class="mx-auto text-base"  />
 			<figcaption class="mt-2">
 				<code class="break-all text-xs">{path}</code>
 			</figcaption>
