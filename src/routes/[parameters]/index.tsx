@@ -63,8 +63,8 @@ async function generateImage(parameters: Parameters, dark: boolean) {
 function Placeholder(props: Parameters & { dark: boolean }) {
 	const darkColor = "#1a1110"
 	const lightColor = "#f7f7f7"
-	const fontSizeMax = 40
-	const fontSizeRatio = .2
+	const fontSizeMax = 45
+	const fontSizeRatio = .17
 	const fontSizeComputed = Math.min(Math.min(props.width, props.height) * props.dpr * fontSizeRatio, fontSizeMax)
 
 	return (

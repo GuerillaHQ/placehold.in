@@ -16,7 +16,7 @@ export default component$(() => {
 
 			<div class="border-2 border-gray-200 bg-gray-100 p-2">
 				<span>{origin}/</span>
-				<span class="bg-blue-100">600x400</span>
+				<span class="bg-blue-100">300x200</span>
 				<span class="bg-yellow-100">@2x</span>
 				<span class="bg-green-100">.png</span>
 				<span class="bg-red-100">?dark</span>
@@ -47,7 +47,7 @@ export default component$(() => {
 				</ul>
 			</menu>
 
-			<PlaceholderExample width={600} height={400} dpr={2} format="png" dark={true} />
+			<PlaceholderExample format="png" width={600} height={200} dark={true} />
 
 			<section id="dimensions">
 				<h2>
@@ -60,9 +60,19 @@ export default component$(() => {
 					<code>{ENV.DIMENSION_MAX}</code>.
 				</p>
 
-				<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
-					<PlaceholderExample width={200} />
+				<div class="grid grid-cols-2 xs:grid-cols-4 gap-2 md:gap-5 items-center justify-items-center text-center">
+                    <div class="col-span-2">
+					<PlaceholderExample  width={200} />
+                    </div>
+                    <div class="col-span-2">
 					<PlaceholderExample width={300} height={200} />
+                    </div>
+                    <div class="col-span-3">
+					<PlaceholderExample width={400} height={300} />
+                    </div>
+                    <div>
+					<PlaceholderExample width={100} height={200} />
+                    </div>
 				</div>
 			</section>
 
@@ -77,7 +87,7 @@ export default component$(() => {
 					<code>{ENV.DPR_MAX}</code>.
 				</p>
 
-				<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
+				<div class="grid grid-cols-1 xs:grid-cols-2 gap-2 md:gap-5 items-center justify-items-center text-center">
 					<PlaceholderExample width={200} dpr={2} />
 					<PlaceholderExample width={200} dpr={4} />
 				</div>
@@ -98,9 +108,11 @@ export default component$(() => {
 					))}.
 				</p>
 
-				<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
+				<div class="grid grid-cols-1 xs:grid-cols-2 gap-2 md:gap-5 items-center justify-items-center text-center">
 					<PlaceholderExample width={200} format="png" />
+					<PlaceholderExample width={200} format="jpeg" />
 					<PlaceholderExample width={200} format="webp" />
+					<PlaceholderExample width={200} format="avif" />
 				</div>
 			</section>
 
@@ -114,7 +126,7 @@ export default component$(() => {
 					the dark theme is used instead.
 				</p>
 
-				<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
+				<div class="grid grid-cols-1 xs:grid-cols-2 gap-2 md:gap-5 items-center justify-items-center text-center">
 					<PlaceholderExample width={200} />
 					<PlaceholderExample width={200} dark={true} />
 				</div>
@@ -152,11 +164,13 @@ const PlaceholderExample = component$(({ width, height, dpr, format, dark }: Par
 	].filter(x => x != null).join(" ")
 
 	return (
+        <div class="not-prose">
 		<figure>
 			<img src={path} width={width} height={height} alt={description}  />
-			<figcaption class="break-all">
-				{path}
+			<figcaption class="mt-2">
+				<code class="break-all text-xs">{path}</code>
 			</figcaption>
 		</figure>
+        </div>
 	)
 })
