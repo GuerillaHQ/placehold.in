@@ -60,7 +60,7 @@ export default component$(() => {
 					<code>{ENV.DIMENSION_MAX}</code>.
 				</p>
 
-				<div class="flex justify-between">
+				<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
 					<ExampleImage parameters="200" />
 					<ExampleImage parameters="300x200" />
 				</div>
@@ -78,8 +78,10 @@ export default component$(() => {
 				</p>
 
 				<div class="flex justify-between">
-					<ExampleImage parameters="100@2x" />
-					<ExampleImage parameters="50@4x" />
+					<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
+						<ExampleImage parameters="100@2x" />
+						<ExampleImage parameters="50@4x" />
+					</div>
 				</div>
 			</section>
 
@@ -99,8 +101,10 @@ export default component$(() => {
 				</p>
 
 				<div class="flex justify-between">
-					<ExampleImage parameters="200.png" />
-					<ExampleImage parameters="200.webp" />
+					<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
+						<ExampleImage parameters="200.png" />
+						<ExampleImage parameters="200.webp" />
+						</div>
 				</div>
 			</section>
 
@@ -115,16 +119,12 @@ export default component$(() => {
 				</p>
 
 				<div class="flex justify-between">
-					<ExampleImage parameters="200" />
-					<ExampleImage parameters="200?dark" />
+					<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
+						<ExampleImage parameters="200" />
+						<ExampleImage parameters="200?dark" />
+					</div>
 				</div>
 			</section>
-            <section>
-					<ExampleImage parameters="25" />
-					<ExampleImage parameters="35" />
-					<ExampleImage parameters="300" />
-
-            </section>
 		</>
 	)
 })
@@ -139,7 +139,7 @@ const ExampleImage = component$(({ parameters }: { parameters: string }) => {
 	return (
 		<figure>
 			<img src={path} alt={`Placeholder image using ${parameters}`} />
-			<figcaption>{path}</figcaption>
+			<figcaption class="break-all">{path}</figcaption>
 		</figure>
 	)
 })
