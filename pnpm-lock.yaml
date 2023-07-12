@@ -1,12 +1,6 @@
 lockfileVersion: '6.0'
 
 dependencies:
-  '@effect/data':
-    specifier: ^0.14.0
-    version: 0.14.0
-  '@effect/match':
-    specifier: ^0.25.1
-    version: 0.25.1
   '@tailwindcss/typography':
     specifier: ^0.5.9
     version: 0.5.9(tailwindcss@3.3.1)
@@ -22,9 +16,6 @@ dependencies:
   ts-pattern:
     specifier: ^5.0.1
     version: 5.0.1
-  type-level-regexp:
-    specifier: ^0.1.17
-    version: 0.1.17
   wasm-vips:
     specifier: ^0.0.5
     version: 0.0.5
@@ -245,35 +236,6 @@ packages:
       gonzales-pe: 4.3.0
       node-source-walk: 6.0.2
     dev: true
-
-  /@effect/data@0.13.6:
-    resolution: {integrity: sha512-nWNGS7SQKUD7qRamHE9iamrdV9JUuS5o8X7hLrk6jjLOQ47tDh6da190o7h6cNck74HZBNXeb78LaRGkK9Sc5g==}
-    dev: false
-
-  /@effect/data@0.14.0:
-    resolution: {integrity: sha512-ZGmCBE5HQKSMVNjmBtIIhsUkd7cXhTeg8CUqZ6iZFHQz5yIwuAoCB7z7Gv2AXtonpSTsN7KiMg2xJ1+qL/pTrg==}
-    dev: false
-
-  /@effect/io@0.31.4:
-    resolution: {integrity: sha512-8OnD8jzQqe4SjLixKqhIu5jUc6JhiqXCyAxTsdz7gjYRuJ+E3OPiIh5nqexX5vDlCIDdNMGBolcKdYO9csD3JQ==}
-    dependencies:
-      '@effect/data': 0.13.6
-    dev: false
-
-  /@effect/match@0.25.1:
-    resolution: {integrity: sha512-CigsYLkY9zr5JdN2UlKf08pzZr/BLWX7rU+48TUDp8Wh0kNcGWQxWrqxZNQx/dMX/kc+ppg249QNoxxOxJTOfw==}
-    dependencies:
-      '@effect/data': 0.13.6
-      '@effect/schema': 0.25.0
-    dev: false
-
-  /@effect/schema@0.25.0:
-    resolution: {integrity: sha512-nJ674r65cqlv6+5jgjUT28oeNnfG/xkk/XduVb0ZF6Cd5rX7GqZp8cKObNwVLTNLJjMqS4N2rHhS8JtgLv88aw==}
-    dependencies:
-      '@effect/data': 0.13.6
-      '@effect/io': 0.31.4
-      fast-check: 3.11.0
-    dev: false
 
   /@esbuild/android-arm64@0.17.19:
     resolution: {integrity: sha512-KBMWvEZooR7+kzY0BtbTQn0OAYY7CsiydT63pVEaPtVYF0hXbUaOyZog37DKxK7NF3XacBJOpYT4adIJh+avxA==}
@@ -4710,13 +4672,6 @@ packages:
       - supports-color
     dev: true
 
-  /fast-check@3.11.0:
-    resolution: {integrity: sha512-H2tctb7AGfFQfz+DEr3UWhJ3s47LXsGp5g3jeJr5tHjnf4xUvpArIqiwcDmL2EXiv+auLHIpF5MqaIpIKvpxiA==}
-    engines: {node: '>=8.0.0'}
-    dependencies:
-      pure-rand: 6.0.2
-    dev: false
-
   /fast-content-type-parse@1.0.0:
     resolution: {integrity: sha512-Xbc4XcysUXcsP5aHUU7Nq3OwvHq97C+WnbkeIefpeYLX+ryzFJlU6OStFJhs6Ol0LkUGpcK+wL0JwfM+FCU5IA==}
     dev: true
@@ -8698,10 +8653,6 @@ packages:
       escape-goat: 4.0.0
     dev: true
 
-  /pure-rand@6.0.2:
-    resolution: {integrity: sha512-6Yg0ekpKICSjPswYOuC5sku/TSWaRYlA0qsXqJgM/d/4pLPHPuTxK7Nbf7jFKzAeedUhR8C7K9Uv63FBsSo8xQ==}
-    dev: false
-
   /qs@6.11.0:
     resolution: {integrity: sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==}
     engines: {node: '>=0.6'}
@@ -10216,10 +10167,6 @@ packages:
       media-typer: 0.3.0
       mime-types: 2.1.35
     dev: true
-
-  /type-level-regexp@0.1.17:
-    resolution: {integrity: sha512-wTk4DH3cxwk196uGLK/E9pE45aLfeKJacKmcEgEOA/q5dnPGNxXt0cfYdFxb57L+sEpf1oJH4Dnx/pnRcku9jg==}
-    dev: false
 
   /typed-array-length@1.0.4:
     resolution: {integrity: sha512-KjZypGq+I/H7HI5HlOoGHkWUUGq+Q0TPhQurLbyrVrvnKTBgzLhIJ7j6J/XTQOi0d1RjyZ0wdas8bKs2p0x3Ng==}
