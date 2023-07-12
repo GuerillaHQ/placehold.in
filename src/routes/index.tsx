@@ -166,7 +166,7 @@ const PlaceholderExample = component$(({ width, height, dpr, format, dark }: Par
 	return (
 		<div class="not-prose">
 		<figure>
-			<img src={path} width={width} height={height} alt={description} class="mx-auto" />
+			<img src={path} width={width} height={height ?? width} alt={description} class="mx-auto" />
 			<figcaption class="mt-2">
 				<code class="break-all text-xs">{path}</code>
 			</figcaption>
