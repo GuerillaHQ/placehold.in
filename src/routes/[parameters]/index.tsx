@@ -5,6 +5,8 @@ import { match } from "ts-pattern"
 import satori from "satori"
 import sharp from "sharp"
 import { z } from "zod"
+import { ENV, SUPPORTED_FORMATS } from "~/env"
+
 
 export const onGet: RequestHandler = async ({ params, query, json, send }) => {
 	const literalResult = literalParametersSchema.safeParse(params.parameters)
@@ -83,52 +85,21 @@ function Placeholder(props: Parameters & { dark: boolean }) {
 	)
 }
 
-const SUPPORTED_FORMATS = [
-	"avif",
-	"heif",
-	"jpeg",
-	"jxl",
-	"png",
-	"svg",
-	"webp",
-] as const
-
 const positiveInt = z.coerce.number().int().positive()
 
-const envSchema = z.object({
-	WIDTH_MAX: positiveInt,
-	HEIGHT_MAX: positiveInt,
-	DPR_MAX: positiveInt,
-	FORMAT_DEFAULT: z.enum(SUPPORTED_FORMATS),
-	FORMAT_LIST: z
-		.string()
-		.transform((value) => value.split(","))
-		.pipe(z.array(z.enum(SUPPORTED_FORMATS)).nonempty()),
+export const parametersSchema = z.object({
+	width: positiveInt.max(ENV.DIMENSION_MAX),
+	height: positiveInt.max(ENV.DIMENSION_MAX),
+	dpr: positiveInt.max(ENV.DPR_MAX).default(1),
+	format: z.enum(SUPPORTED_FORMATS).default(ENV.FORMAT_DEFAULT),
 })
 
-type Env = z.infer<typeof envSchema>
-
-const env: Env = {
-	WIDTH_MAX: 1600,
-	HEIGHT_MAX: 1600,
-	DPR_MAX: 5,
-	FORMAT_DEFAULT: "svg",
-	FORMAT_LIST: ["avif", "heif", "jpeg", "jxl", "png", "svg", "webp"],
-}
-
-const parametersSchema = z.object({
-	width: positiveInt.max(env.WIDTH_MAX),
-	height: positiveInt.max(env.HEIGHT_MAX),
-	dpr: positiveInt.max(env.DPR_MAX).default(1),
-	format: z.enum(SUPPORTED_FORMATS).default(env.FORMAT_DEFAULT),
-})
-
-type Parameters = z.infer<typeof parametersSchema>
+export type Parameters = z.infer<typeof parametersSchema>
 
 const literalParametersRegex =
 	/^(?<width>\d+)(?:x?(?<height>\d+))?(?:@(?<dpr>\d+)x)?(?:\.(?<format>\w+))?$/
 
-const literalParametersSchema = z
+export const literalParametersSchema = z
 	.string()
 	.regex(literalParametersRegex)
 	.transform((value) => {

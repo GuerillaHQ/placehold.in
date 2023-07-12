@@ -1,5 +1,6 @@
 import { component$ } from "@builder.io/qwik"
 import { useLocation } from "@builder.io/qwik-city"
+import { ENV, SUPPORTED_FORMATS } from "~/env"
 
 export default component$(() => {
 	const {
@@ -58,7 +59,7 @@ export default component$(() => {
 				<p>
 					Required. Allowed value for both width and height is a
 					positive integer between <code>1</code> and{" "}
-					<code>SIZE_MAX</code>.
+					<code>{ENV.DIMENSION_MAX}</code>.
 				</p>
 
 				<div class="flex justify-between">
@@ -75,7 +76,7 @@ export default component$(() => {
 				<p>
 					Optional with <code>1</code> as default. Allowed value is a
 					positive integer between <code>1</code> and{" "}
-					<code>DP_MAX</code>.
+					<code>{ENV.DPR_MAX}</code>.
 				</p>
 
 				<div class="flex justify-between">
@@ -90,10 +91,13 @@ export default component$(() => {
 				</h2>
 
 				<p>
-					Optional with <code>svg</code> as default. Allowed values
-					are <code>avif</code>, <code>heif</code>, <code>jpeg</code>,{" "}
-					<code>jxl</code>, <code>png</code>, <code>svg</code>,{" "}
-					<code>webp</code>.
+					Optional with <code>{ENV.FORMAT_DEFAULT}</code> as default. Allowed values
+					are {SUPPORTED_FORMATS.map((format, index) => (
+						<>
+							{index > 0 && index !== SUPPORTED_FORMATS.length - 1 ? ", " : " and "}
+							<code>{format}</code>
+						</>
+					))}.
 				</p>
 
 				<div class="flex justify-between">
