@@ -1,5 +1,5 @@
 import { component$, Slot } from "@builder.io/qwik"
-import type { DocumentHead } from "@builder.io/qwik-city"
+import type { DocumentHead, RequestHandler } from "@builder.io/qwik-city"
 
 export const head: DocumentHead = {
 	title: "Placehold.in - A Simple Image Placeholder",
@@ -9,6 +9,14 @@ export const head: DocumentHead = {
 			content: "A quick way to display placeholder images during mockups",
 		},
 	],
+}
+
+export const onGet: RequestHandler = async ({ cacheControl }) => {
+	cacheControl({
+		public: true,
+		maxAge: 5,
+		staleWhileRevalidate: 60 * 60 * 24 * 365,
+	})
 }
 
 export default component$(() => {
