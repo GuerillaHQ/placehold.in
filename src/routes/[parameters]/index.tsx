@@ -63,6 +63,9 @@ async function generateImage(parameters: Parameters, dark: boolean) {
 function Placeholder(props: Parameters & { dark: boolean }) {
 	const darkColor = "#1a1110"
 	const lightColor = "#f7f7f7"
+	const fontSizeMax = 40
+	const fontSizeRatio = .2
+	const fontSizeComputed = Math.min(Math.min(props.width, props.height) * props.dpr * fontSizeRatio, fontSizeMax)
 
 	return (
 		<div
@@ -75,7 +78,7 @@ function Placeholder(props: Parameters & { dark: boolean }) {
 				justifyContent: "center",
 				backgroundColor: props.dark ? darkColor : lightColor,
 				color: props.dark ? lightColor : darkColor,
-				fontSize: 32,
+				fontSize: fontSizeComputed,
 				fontWeight: 600,
 			}}
 		>
