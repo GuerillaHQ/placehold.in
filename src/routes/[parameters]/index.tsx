@@ -2,7 +2,7 @@
 import { type RequestHandler } from "@builder.io/qwik-city"
 import { match } from "ts-pattern"
 import satori from "satori"
-import sharp from "sharp"
+import Vips from "wasm-vips"
 import { z } from "zod"
 import { ENV, SUPPORTED_FORMATS } from "~/env"
 
@@ -31,24 +31,36 @@ export const onGet: RequestHandler = async ({ params, query, json, url, send }) 
 			],
 		})
 
-		const image = parameters.format === "svg"
-			? svg
-			: await sharp(Buffer.from(svg)).toFormat(parameters.format).toBuffer()
+		const image = await match(parameters.format)
+			.with("svg", () => svg)
+			.otherwise(async format => {
+				const vips = await Vips({
+					dynamicLibraries: [
+						"vips-heif.wasm",
+						"vips-jxl.wasm",
+						"vips-resvg.wasm",
+					]
+				})
+
+				return vips.Image.newFromBuffer(svg).writeToBuffer("." + format)
+			})
+
+		const mediaType = match(parameters.format)
+			.with("avif", () => "image/avif")
+			.with("heif", () => "image/heif")
+			.with("jpeg", () => "image/jpeg")
+			.with("jxl", () => "image/jxl")
+			.with("png", () => "image/png")
+			.with("svg", () => "image/svg+xml")
+			.with("webp", () => "image/jpeg")
+			.exhaustive()
 
 		send(
 			new Response(image, {
 				status: 200,
 				headers: {
-					"Content-Type": match(parameters.format)
-						.with("avif", () => "image/avif")
-						.with("heif", () => "image/heif")
-						.with("jpeg", () => "image/jpeg")
-						.with("jxl", () => "image/jxl")
-						.with("png", () => "image/png")
-						.with("svg", () => "image/svg+xml")
-						.with("webp", () => "image/jpeg")
-						.exhaustive(),
-				},
+					"Content-Type": mediaType,
+				}
 			})
 		)
 	}
