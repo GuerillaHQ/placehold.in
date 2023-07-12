@@ -24,8 +24,8 @@ export default component$(() => {
 				<main>
 					<Slot />
 				</main>
-				<footer class="pt-16 pb-16 text-slate-500 text-base text-center">
-					<div class="not-prose text-3xl text-center text-slate-200 mb-8" aria-hidden="true">∴</div>
+				<footer class="pt-8 pb-6 md:py-16 text-slate-500 text-base text-center">
+					<div class="not-prose text-3xl text-center text-slate-200 mb-4 md:mb-8" aria-hidden="true">∴</div>
 					Made by <a href="https://guerilla.studio">Guérilla.Studio</a> • Hosted on Netlify
 				</footer>
 			</div>
