@@ -25,10 +25,26 @@ export default component$(() => {
 
 			<menu>
 				<ul>
-					<li><a href="#dimensions" class="bg-blue-100">Dimensions</a></li>
-					<li><a href="#dpr" class="bg-yellow-100">Device pixel ratio</a></li>
-					<li><a href="#format" class="bg-green-100">Format</a></li>
-					<li><a href="#theme" class="bg-red-100">Theme</a></li>
+					<li>
+						<a href="#dimensions" class="bg-blue-100">
+							Dimensions
+						</a>
+					</li>
+					<li>
+						<a href="#dpr" class="bg-yellow-100">
+							Device pixel ratio
+						</a>
+					</li>
+					<li>
+						<a href="#format" class="bg-green-100">
+							Format
+						</a>
+					</li>
+					<li>
+						<a href="#theme" class="bg-red-100">
+							Theme
+						</a>
+					</li>
 				</ul>
 			</menu>
 
@@ -75,7 +91,8 @@ export default component$(() => {
 
 				<p>
 					Optional with <code>svg</code> as default. Allowed values
-					are <code>jpeg</code>, <code>png</code>, <code>svg</code>,{" "}
+					are <code>avif</code>, <code>heif</code>, <code>jpeg</code>,{" "}
+					<code>jxl</code>, <code>png</code>, <code>svg</code>,{" "}
 					<code>webp</code>.
 				</p>
 

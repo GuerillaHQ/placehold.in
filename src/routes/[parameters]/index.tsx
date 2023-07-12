@@ -23,10 +23,13 @@ export const onGet: RequestHandler = async ({ params, query, json, send }) => {
 				status: 200,
 				headers: {
 					"Content-Type": match(parameters.format)
-						.with("svg", () => "image/svg+xml")
-						.with("png", () => "image/png")
-						.with("webp", () => "image/jpeg")
+						.with("avif", () => "image/avif")
+						.with("heif", () => "image/heif")
 						.with("jpeg", () => "image/jpeg")
+						.with("jxl", () => "image/jxl")
+						.with("png", () => "image/png")
+						.with("svg", () => "image/svg+xml")
+						.with("webp", () => "image/jpeg")
 						.exhaustive(),
 				},
 			})
@@ -80,7 +83,15 @@ function Placeholder(props: Parameters & { dark: boolean }) {
 	)
 }
 
-const SUPPORTED_FORMATS = ["svg", "png", "jpeg", "webp"] as const
+const SUPPORTED_FORMATS = [
+	"avif",
+	"heif",
+	"jpeg",
+	"jxl",
+	"png",
+	"svg",
+	"webp",
+] as const
 
 const positiveInt = z.coerce.number().int().positive()
 
@@ -102,7 +113,7 @@ const env: Env = {
 	HEIGHT_MAX: 1600,
 	DPR_MAX: 5,
 	FORMAT_DEFAULT: "svg",
-	FORMAT_LIST: ["svg", "png", "jpeg", "webp"],
+	FORMAT_LIST: ["avif", "heif", "jpeg", "jxl", "png", "svg", "webp"],
 }
 
 const parametersSchema = z.object({
