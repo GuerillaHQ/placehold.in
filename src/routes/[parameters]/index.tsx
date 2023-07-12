@@ -1,6 +1,5 @@
 /** @jsxImportSource react */
 import { type RequestHandler } from "@builder.io/qwik-city"
-import fs from "node:fs/promises"
 import { match } from "ts-pattern"
 import satori from "satori"
 import sharp from "sharp"
@@ -8,7 +7,7 @@ import { z } from "zod"
 import { ENV, SUPPORTED_FORMATS } from "~/env"
 
 
-export const onGet: RequestHandler = async ({ params, query, json, send }) => {
+export const onGet: RequestHandler = async ({ params, query, json, url, send }) => {
 	const literalResult = literalParametersSchema.safeParse(params.parameters)
 
 	if (!literalResult.success) {
@@ -20,8 +19,24 @@ export const onGet: RequestHandler = async ({ params, query, json, send }) => {
 		const parameters = literalResult.data
 		const dark = query.has("dark")
 
+		const svg = await satori(<Placeholder {...parameters} dark={dark} />, {
+			width: parameters.width * parameters.dpr,
+			height: parameters.height * parameters.dpr,
+			fonts: [
+				{
+					name: "Inter",
+					data: await fetch(new URL("/fonts/Inter/static/Inter-Regular.ttf", url))
+						.then(x => x.arrayBuffer()),
+				},
+			],
+		})
+
+		const image = parameters.format === "svg"
+			? svg
+			: await sharp(Buffer.from(svg)).toFormat(parameters.format).toBuffer()
+
 		send(
-			new Response(await generateImage(parameters, dark), {
+			new Response(image, {
 				status: 200,
 				headers: {
 					"Content-Type": match(parameters.format)
@@ -39,33 +54,13 @@ export const onGet: RequestHandler = async ({ params, query, json, send }) => {
 	}
 }
 
-async function generateImage(parameters: Parameters, dark: boolean) {
-	const svg = await satori(<Placeholder {...parameters} dark={dark} />, {
-		width: parameters.width * parameters.dpr,
-		height: parameters.height * parameters.dpr,
-		fonts: [
-			{
-				name: "Inter",
-				data: await fs.readFile(
-					"./public/fonts/Inter/static/Inter-Regular.ttf"
-				),
-			},
-		],
-	})
-
-	if (parameters.format === "svg") {
-		return svg
-	} else {
-		return sharp(Buffer.from(svg)).toFormat(parameters.format).toBuffer()
-	}
-}
-
 function Placeholder(props: Parameters & { dark: boolean }) {
 	const darkColor = "#1a1110"
 	const lightColor = "#f7f7f7"
+
 	const fontSizeMax = 45
 	const fontSizeRatio = .17
-	const fontSizeComputed = Math.min(Math.min(props.width, props.height) * props.dpr * fontSizeRatio, fontSizeMax)
+	const fontSize = Math.min(Math.min(props.width, props.height) * props.dpr * fontSizeRatio, fontSizeMax)
 
 	return (
 		<div
@@ -78,7 +73,7 @@ function Placeholder(props: Parameters & { dark: boolean }) {
 				justifyContent: "center",
 				backgroundColor: props.dark ? darkColor : lightColor,
 				color: props.dark ? lightColor : darkColor,
-				fontSize: fontSizeComputed,
+				fontSize: fontSize,
 				fontWeight: 600,
 			}}
 		>
