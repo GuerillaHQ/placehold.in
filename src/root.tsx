@@ -31,6 +31,8 @@ export default component$(() => {
 				<meta property="og:image:width" content="512" />
 				<meta property="og:image:height" content="512" />
 
+                <link rel="preload"  href="/picto.svg" as="image" type="image/svg+xml" />
+
 				<RouterHead />
 				<ServiceWorkerRegister />
 			</head>
