@@ -12,7 +12,7 @@ export const onGet: RequestHandler = async ({ params, query, json, send }) => {
 	const literalResult = literalParametersSchema.safeParse(params.parameters)
 
 	if (!literalResult.success) {
-		json(200, {
+		json(422, {
 			description: "Invalid parameters",
 			issues: literalResult.error.issues,
 		})
