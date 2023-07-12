@@ -102,7 +102,7 @@ export default component$(() => {
 					Optional with <code>{ENV.FORMAT_DEFAULT}</code> as default. Allowed values
 					are {SUPPORTED_FORMATS.map((format, index) => (
 						<>
-							{index > 0 && index !== SUPPORTED_FORMATS.length - 1 ? ", " : " and "}
+							{index > 0 && (index !== SUPPORTED_FORMATS.length - 1 ? ", " : " and ")}
 							<code>{format}</code>
 						</>
 					))}.
