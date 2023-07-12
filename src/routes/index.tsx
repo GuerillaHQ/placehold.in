@@ -16,7 +16,7 @@ export default component$(() => {
 
 			<div class="border-2 border-gray-200 bg-gray-100 p-2">
 				<span>{origin}/</span>
-				<span class="bg-blue-100">300x200</span>
+				<span class="bg-blue-100">600x400</span>
 				<span class="bg-yellow-100">@2x</span>
 				<span class="bg-green-100">.png</span>
 				<span class="bg-red-100">?dark</span>
@@ -47,7 +47,7 @@ export default component$(() => {
 				</ul>
 			</menu>
 
-			<ExampleImage parameters="300x200@2x.png?dark" />
+			<PlaceholderExample width={600} height={400} dpr={2} format="png" dark={true} />
 
 			<section id="dimensions">
 				<h2>
@@ -61,8 +61,8 @@ export default component$(() => {
 				</p>
 
 				<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
-					<ExampleImage parameters="200" />
-					<ExampleImage parameters="300x200" />
+					<PlaceholderExample width={200} />
+					<PlaceholderExample width={300} height={200} />
 				</div>
 			</section>
 
@@ -77,11 +77,9 @@ export default component$(() => {
 					<code>{ENV.DPR_MAX}</code>.
 				</p>
 
-				<div class="flex justify-between">
-					<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
-						<ExampleImage parameters="100@2x" />
-						<ExampleImage parameters="50@4x" />
-					</div>
+				<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
+					<PlaceholderExample width={200} dpr={2} />
+					<PlaceholderExample width={200} dpr={4} />
 				</div>
 			</section>
 
@@ -100,11 +98,9 @@ export default component$(() => {
 					))}.
 				</p>
 
-				<div class="flex justify-between">
-					<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
-						<ExampleImage parameters="200.png" />
-						<ExampleImage parameters="200.webp" />
-						</div>
+				<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
+					<PlaceholderExample width={200} format="png" />
+					<PlaceholderExample width={200} format="webp" />
 				</div>
 			</section>
 
@@ -118,28 +114,49 @@ export default component$(() => {
 					the dark theme is used instead.
 				</p>
 
-				<div class="flex justify-between">
-					<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
-						<ExampleImage parameters="200" />
-						<ExampleImage parameters="200?dark" />
-					</div>
+				<div class="grid grid-cols-1 xs:grid-cols-2 gap-x-2 md:gap-x-5">
+					<PlaceholderExample width={200} />
+					<PlaceholderExample width={200} dark={true} />
 				</div>
 			</section>
 		</>
 	)
 })
 
-const ExampleImage = component$(({ parameters }: { parameters: string }) => {
+type Parameters = {
+	width: number,
+	height?: number,
+	dpr?: number,
+	format?: string,
+	dark?: true
+}
+
+const PlaceholderExample = component$(({ width, height, dpr, format, dark }: Parameters) => {
 	const {
 		url: { origin },
 	} = useLocation()
 
-	const path = `${origin}/${parameters}`
+	const path = [
+		`${origin}/`,
+		height ? `${width}x${height}` : width,
+		dpr && `@${dpr}x`,
+		format && `.${format}`,
+		dark && "?dark",
+	].filter(x => x != null).join("")
+
+	const description = [
+		"A",
+		dark && "dark",
+		height ? "rectangle" : "square",
+		"placeholder image."
+	].filter(x => x != null).join(" ")
 
 	return (
 		<figure>
-			<img src={path} alt={`Placeholder image using ${parameters}`} />
-			<figcaption class="break-all">{path}</figcaption>
+			<img src={path} width={width} height={height} alt={description}  />
+			<figcaption class="break-all">
+				{path}
+			</figcaption>
 		</figure>
 	)
 })
