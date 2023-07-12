@@ -160,7 +160,10 @@ const PlaceholderExample = component$(({ width, height, dpr, format, dark }: Par
 		"A",
 		dark && "dark",
 		height ? "rectangle" : "square",
-		"placeholder image."
+		format,
+		"placeholder image",
+		dpr && `scaled ${dpr} times`,
+		".",
 	].filter(x => x != null).join(" ")
 
 	return (
