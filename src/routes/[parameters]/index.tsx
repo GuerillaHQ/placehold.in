@@ -72,7 +72,7 @@ function Placeholder(props: Parameters & { dark: boolean }) {
 
 	const fontSizeMax = 45
 	const fontSizeRatio = .17
-	const fontSize = Math.min(Math.min(props.width, props.height) * props.dpr * fontSizeRatio, fontSizeMax)
+	const fontSize = Math.min(Math.min(props.width, props.height) * props.dpr * fontSizeRatio, fontSizeMax * props.dpr)
 
 	return (
 		<div
