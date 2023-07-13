@@ -47,7 +47,12 @@ export default component$(() => {
 				</ul>
 			</menu>
 
-			<PlaceholderExample format="png" width={600} height={200} dark={true} />
+			<PlaceholderExample
+				format="png"
+				width={600}
+				height={200}
+				dark={true}
+			/>
 
 			<section id="dimensions">
 				<h2>
@@ -62,16 +67,24 @@ export default component$(() => {
 
 				<div class="grid grid-cols-2 xs:grid-cols-4 gap-2 md:gap-5 items-center justify-items-center text-center">
 					<div class="col-span-2">
-					<PlaceholderExample  width={200} />
+						<PlaceholderExample width={200} />
 					</div>
 					<div class="col-span-2">
-					<PlaceholderExample width={300} height={200}/>
+						<PlaceholderExample width={300} height={200} />
 					</div>
 					<div class="col-span-3">
-					<PlaceholderExample width={400} height={300} lazy={true}/>
+						<PlaceholderExample
+							width={400}
+							height={300}
+							lazy={true}
+						/>
 					</div>
 					<div>
-					<PlaceholderExample width={100} height={200} lazy={true}/>
+						<PlaceholderExample
+							width={100}
+							height={200}
+							lazy={true}
+						/>
 					</div>
 				</div>
 			</section>
@@ -88,8 +101,8 @@ export default component$(() => {
 				</p>
 
 				<div class="grid grid-cols-1 xs:grid-cols-2 gap-2 md:gap-5 items-center justify-items-center text-center">
-					<PlaceholderExample width={200} dpr={2} lazy={true}/>
-					<PlaceholderExample width={200} dpr={4} lazy={true}/>
+					<PlaceholderExample width={200} dpr={2} lazy={true} />
+					<PlaceholderExample width={200} dpr={4} lazy={true} />
 				</div>
 			</section>
 
@@ -99,20 +112,25 @@ export default component$(() => {
 				</h2>
 
 				<p>
-					Optional with <code>{ENV.FORMAT_DEFAULT}</code> as default. Allowed values
-					are {SUPPORTED_FORMATS.map((format, index) => (
+					Optional with <code>{ENV.FORMAT_DEFAULT}</code> as default.
+					Allowed values are{" "}
+					{SUPPORTED_FORMATS.map((format, index) => (
 						<>
-							{index > 0 && (index !== SUPPORTED_FORMATS.length - 1 ? ", " : " and ")}
+							{index > 0 &&
+								(index !== SUPPORTED_FORMATS.length - 1
+									? ", "
+									: " and ")}
 							<code>{format}</code>
 						</>
-					))}.
+					))}
+					.
 				</p>
 
 				<div class="grid grid-cols-1 xs:grid-cols-2 gap-2 md:gap-5 items-center justify-items-center text-center">
-					<PlaceholderExample width={200} format="png" lazy={true}/>
-					<PlaceholderExample width={200} format="jpeg" lazy={true}/>
-					<PlaceholderExample width={200} format="webp" lazy={true}/>
-					<PlaceholderExample width={200} format="avif" lazy={true}/>
+					<PlaceholderExample width={200} format="png" lazy={true} />
+					<PlaceholderExample width={200} format="jpeg" lazy={true} />
+					<PlaceholderExample width={200} format="webp" lazy={true} />
+					<PlaceholderExample width={200} format="avif" lazy={true} />
 				</div>
 			</section>
 
@@ -127,8 +145,8 @@ export default component$(() => {
 				</p>
 
 				<div class="grid grid-cols-1 xs:grid-cols-2 gap-2 md:gap-5 items-center justify-items-center text-center">
-					<PlaceholderExample width={200} lazy={true}/>
-					<PlaceholderExample width={200} dark={true} lazy={true}/>
+					<PlaceholderExample width={200} lazy={true} />
+					<PlaceholderExample width={200} dark={true} lazy={true} />
 				</div>
 			</section>
 		</>
@@ -136,45 +154,58 @@ export default component$(() => {
 })
 
 type Parameters = {
-	width: number,
-	height?: number,
-	dpr?: number,
-	format?: string,
-	dark?: true,
+	width: number
+	height?: number
+	dpr?: number
+	format?: string
+	dark?: true
 	lazy?: true
 }
 
-const PlaceholderExample = component$(({ width, height, dpr, format, dark, lazy }: Parameters) => {
-	const {
-		url: { origin },
-	} = useLocation()
+const PlaceholderExample = component$(
+	({ width, height, dpr, format, dark, lazy }: Parameters) => {
+		const {
+			url: { origin },
+		} = useLocation()
 
-	const path = [
-		`${origin}/`,
-		height ? `${width}x${height}` : width,
-		dpr && `@${dpr}x`,
-		format && `.${format}`,
-		dark && "?dark",
-	].filter(x => x != null).join("")
+		const path = [
+			`${origin}/`,
+			height ? `${width}x${height}` : width,
+			dpr && `@${dpr}x`,
+			format && `.${format}`,
+			dark && "?dark",
+		]
+			.filter((x) => x != null)
+			.join("")
 
-	const description = [
-		"A",
-		dark && "dark",
-		height ? "rectangle" : "square",
-		format,
-		"placeholder image",
-		dpr && `scaled ${dpr} times`,
-		".",
-	].filter(x => x != null).join(" ")
+		const description = [
+			"A",
+			dark && "dark",
+			height ? "rectangle" : "square",
+			format,
+			"placeholder image",
+			dpr && `scaled ${dpr} times`,
+			".",
+		]
+			.filter((x) => x != null)
+			.join(" ")
 
-	return (
-		<div class="not-prose">
-		<figure>
-			<img src={path} width={width} height={height ?? width} alt={description} loading={ lazy ? 'lazy' : 'eager' } class="mx-auto text-base"  />
-			<figcaption class="mt-2">
-				<code class="break-all text-xs">{path}</code>
-			</figcaption>
-		</figure>
-		</div>
-	)
-})
+		return (
+			<div class="not-prose">
+				<figure>
+					<img
+						src={path}
+						width={width}
+						height={height ?? width}
+						alt={description}
+						loading={lazy ? "lazy" : "eager"}
+						class="mx-auto text-base"
+					/>
+					<figcaption class="mt-2">
+						<code class="break-all text-xs">{path}</code>
+					</figcaption>
+				</figure>
+			</div>
+		)
+	}
+)

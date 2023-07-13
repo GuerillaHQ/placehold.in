@@ -6,7 +6,13 @@ import Vips from "wasm-vips"
 import { z } from "zod"
 import { ENV, SUPPORTED_FORMATS } from "~/env"
 
-export const onGet: RequestHandler = async ({ params, query, json, url, send }) => {
+export const onGet: RequestHandler = async ({
+	params,
+	query,
+	json,
+	url,
+	send,
+}) => {
 	const literalResult = literalParametersSchema.safeParse(params.parameters)
 
 	if (!literalResult.success) {
@@ -24,26 +30,32 @@ export const onGet: RequestHandler = async ({ params, query, json, url, send }) 
 			fonts: [
 				{
 					name: "Inter",
-					data: await fetch(new URL("/fonts/Inter/static/Inter-Regular.ttf", url))
-						.then(x => x.arrayBuffer()),
+					data: await fetch(
+						new URL("/fonts/Inter/static/Inter-Regular.ttf", url)
+					).then((x) => x.arrayBuffer()),
 				},
 			],
 		})
 
 		const image = await match(parameters.format)
 			.with("svg", () => svg)
-			.otherwise(async format => {
+			.otherwise(async (format) => {
 				const vips = await Vips({
 					// FIXME: This a hacky to allow netlify edge env to access missing files not packaged by vite+qwik
 					locateFile: (url, scriptDirectory) => {
-						const denoScriptDirectory = "https://unpkg.com/wasm-vips@0.0.5/lib/"
-						return ("Deno" in globalThis ? denoScriptDirectory : scriptDirectory) + url
+						const denoScriptDirectory =
+							"https://unpkg.com/wasm-vips@0.0.5/lib/"
+						return (
+							("Deno" in globalThis
+								? denoScriptDirectory
+								: scriptDirectory) + url
+						)
 					},
 					dynamicLibraries: [
 						"vips-heif.wasm",
 						"vips-jxl.wasm",
 						"vips-resvg.wasm",
-					]
+					],
 				})
 
 				return vips.Image.newFromBuffer(svg).writeToBuffer("." + format)
@@ -64,7 +76,7 @@ export const onGet: RequestHandler = async ({ params, query, json, url, send }) 
 				status: 200,
 				headers: {
 					"Content-Type": mediaType,
-				}
+				},
 			})
 		)
 	}
@@ -75,8 +87,11 @@ function Placeholder(props: Parameters & { dark: boolean }) {
 	const lightColor = "#f7f7f7"
 
 	const fontSizeMax = 45
-	const fontSizeRatio = .17
-	const fontSize = Math.min(Math.min(props.width, props.height) * props.dpr * fontSizeRatio, fontSizeMax * props.dpr)
+	const fontSizeRatio = 0.17
+	const fontSize = Math.min(
+		Math.min(props.width, props.height) * props.dpr * fontSizeRatio,
+		fontSizeMax * props.dpr
+	)
 
 	return (
 		<div

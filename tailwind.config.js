@@ -4,13 +4,12 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				primary: '#8f358d'
+				primary: "#8f358d",
 			},
 			screens: {
-				'xs': '400px'
-			}
+				xs: "400px",
+			},
 		},
-
 	},
 	plugins: [require("@tailwindcss/typography")],
 }
