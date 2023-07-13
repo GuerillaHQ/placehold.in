@@ -6,7 +6,7 @@ import Vips from "wasm-vips"
 import { z } from "zod"
 import { ENV, SUPPORTED_FORMATS } from "~/env"
 
-export const onGet: RequestHandler = async ({ params, query, json, url, send, env }) => {
+export const onGet: RequestHandler = async ({ params, query, json, url, send }) => {
 	const literalResult = literalParametersSchema.safeParse(params.parameters)
 
 	if (!literalResult.success) {
@@ -37,7 +37,7 @@ export const onGet: RequestHandler = async ({ params, query, json, url, send, en
 					// FIXME: This a hacky to allow netlify edge env to access missing files not packaged by vite+qwik
 					locateFile: (url, scriptDirectory) => {
 						const denoScriptDirectory = "https://unpkg.com/wasm-vips@0.0.5/lib/"
-						return (env.get("NETLIFY") ? denoScriptDirectory : scriptDirectory) + url
+						return ("Deno" in globalThis ? denoScriptDirectory : scriptDirectory) + url
 					},
 					dynamicLibraries: [
 						"vips-heif.wasm",
