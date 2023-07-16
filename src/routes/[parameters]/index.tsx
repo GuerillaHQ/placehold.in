@@ -8,6 +8,8 @@ import { ENV, SUPPORTED_FORMATS } from "~/env"
 
 import inter from "@fontsource/inter/files/inter-latin-500-normal.woff"
 
+const isDeno = "Deno" in globalThis
+
 export const onGet: RequestHandler = async ({
 	params,
 	query,
@@ -32,7 +34,7 @@ export const onGet: RequestHandler = async ({
 			fonts: [
 				{
 					name: "Inter",
-					data: Buffer.from(inter),
+					data: isDeno ? new TextEncoder().encode(inter).buffer : Buffer.from(inter),
 				},
 			],
 		})
@@ -45,11 +47,8 @@ export const onGet: RequestHandler = async ({
 					locateFile: (url, scriptDirectory) => {
 						const denoScriptDirectory =
 							"https://unpkg.com/wasm-vips@0.0.5/lib/"
-						return (
-							("Deno" in globalThis
-								? denoScriptDirectory
-								: scriptDirectory) + url
-						)
+
+						return (isDeno ? denoScriptDirectory : scriptDirectory) + url
 					},
 					dynamicLibraries: [
 						"vips-heif.wasm",
