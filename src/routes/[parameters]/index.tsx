@@ -6,7 +6,7 @@ import Vips from "wasm-vips"
 import { z } from "zod"
 import { ENV, SUPPORTED_FORMATS } from "~/env"
 
-import inter from "@fontsource/inter/files/inter-latin-500-normal.woff"
+// import inter from "@fontsource/inter/files/inter-latin-500-normal.woff"
 
 const isDeno = "Deno" in globalThis
 
@@ -33,7 +33,8 @@ export const onGet: RequestHandler = async ({
 			fonts: [
 				{
 					name: "Inter",
-					data: isDeno ? new TextEncoder().encode(inter).buffer : Buffer.from(inter),
+					data: await fetch("https://cdn.jsdelivr.net/npm/@vercel/og@0.1.0/vendor/noto-sans-v27-latin-regular.ttf").then(x => x.arrayBuffer()),
+					// data: isDeno ? (await fetch("https://cdn.jsdelivr.net/npm/@vercel/og@0.1.0/vendor/noto-sans-v27-latin-regular.ttf").then(x => x.arrayBuffer())) : Buffer.from(inter),
 				},
 			],
 		})
