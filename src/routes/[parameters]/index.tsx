@@ -14,7 +14,6 @@ export const onGet: RequestHandler = async ({
 	params,
 	query,
 	json,
-	url,
 	send,
 }) => {
 	const literalResult = literalParametersSchema.safeParse(params.parameters)
