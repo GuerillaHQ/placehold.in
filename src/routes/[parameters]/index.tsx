@@ -26,8 +26,6 @@ export const onGet: RequestHandler = async ({
 		const parameters = literalResult.data
 		const dark = query.has("dark")
 
-		console.log(inter.length)
-
 		const svg = await satori(<Placeholder {...parameters} dark={dark} />, {
 			width: parameters.width * parameters.dpr,
 			height: parameters.height * parameters.dpr,
@@ -35,9 +33,6 @@ export const onGet: RequestHandler = async ({
 				{
 					name: "Inter",
 					data: Buffer.from(inter),
-					// data: await fetch(
-					// 	new URL("/fonts/Inter/static/Inter-Regular.ttf", url)
-					// ).then((x) => x.arrayBuffer()),
 				},
 			],
 		})

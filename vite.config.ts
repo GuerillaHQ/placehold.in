@@ -1,23 +1,23 @@
-import { defineConfig } from "vite";
+import { defineConfig, type PluginOption } from "vite";
 import { qwikVite } from "@builder.io/qwik/optimizer";
 import { qwikCity } from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import fs from 'fs';
 
 export default defineConfig(() => {
-  return {
-    plugins: [qwikCity(), qwikVite(), tsconfigPaths(), rawFonts([".woff"])],
-    preview: {
-      headers: {
-        "Cache-Control": "public, max-age=600",
-      },
-    },
-  };
+	return {
+		plugins: [qwikCity(), qwikVite(), tsconfigPaths(), rawFonts([".woff"])],
+		preview: {
+			headers: {
+				"Cache-Control": "public, max-age=600",
+			},
+		},
+	};
 });
 
 // adapted from mattjennings
 // https://github.com/mattjennings/mattjennings.io/blob/master/vite.config.js
-function rawFonts(ext) {
+function rawFonts(ext: Array<string>): PluginOption {
 	return {
 		name: 'vite-plugin-raw-fonts',
 		resolveId(id) {
