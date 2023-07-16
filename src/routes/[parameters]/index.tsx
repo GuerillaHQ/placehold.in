@@ -6,6 +6,8 @@ import Vips from "wasm-vips"
 import { z } from "zod"
 import { ENV, SUPPORTED_FORMATS } from "~/env"
 
+import inter from "@fontsource/inter/files/inter-latin-500-normal.woff"
+
 export const onGet: RequestHandler = async ({
 	params,
 	query,
@@ -24,15 +26,18 @@ export const onGet: RequestHandler = async ({
 		const parameters = literalResult.data
 		const dark = query.has("dark")
 
+		console.log(inter.length)
+
 		const svg = await satori(<Placeholder {...parameters} dark={dark} />, {
 			width: parameters.width * parameters.dpr,
 			height: parameters.height * parameters.dpr,
 			fonts: [
 				{
 					name: "Inter",
-					data: await fetch(
-						new URL("/fonts/Inter/static/Inter-Regular.ttf", url)
-					).then((x) => x.arrayBuffer()),
+					data: Buffer.from(inter),
+					// data: await fetch(
+					// 	new URL("/fonts/Inter/static/Inter-Regular.ttf", url)
+					// ).then((x) => x.arrayBuffer()),
 				},
 			],
 		})
